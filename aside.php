@@ -54,8 +54,8 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Products:</h6>
-            <a class="collapse-item" href="utilities-color.php">Add Product</a>
-            <a class="collapse-item" href="utilities-border.php">View Product</a>
+            <a class="collapse-item" href="addproducts.php">Add Product</a>
+            <a class="collapse-item" href="viewproducts.php">View Product</a>
       
         </div>
     </div>
