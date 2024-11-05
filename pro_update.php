@@ -29,38 +29,87 @@ include('connection.php');
     <div id="wrapper">
 
     <?php include("aside.php") ?>
-
-                
-                <div class="container-fluid">
-
-                
                 <div class="container my-4">
+                    <h3 class="text-primary">Add Products</h3>
     <form action="" method="post" enctype="multipart/form-data">
+    <?php
+        if(isset($_GET['id'])){
+$up=$_GET['id'];
+$query=mysqli_query($con,"SELECT * FROM `products` WHERE id=$up");
+$col=mysqli_fetch_array($query);
+        }
+        ?>
         <div class ="from-control">
-            <label for=""  class="form-label">category name</label>
-            <input type="text" name= "cname" id ="" class="form-control" placeholder="">
+            <label for=""  class="form-label">Product Name</label>
+            <input type="text" name= "pname" id ="" class="form-control" placeholder="" VALUE="<?php echo $col[1]?>">
 
         </div>
-
         <div class ="from-control">
-            <label for=""  class="form-label">category description</label>
-            <input type="text" name= "cdescip" id ="" class="form-control" placeholder="">
+            <label for=""  class="form-label">Product Price</label>
+            <input type="text" name= "pprice" id ="" class="form-control" placeholder="" VALUE="<?php echo $col[2]?>">
 
         </div>
-
         <div class ="from-control">
-            <label for=""  class="form-label">image</label>
-            <input type="file" name= "cimage" id ="" class="form-control" placeholder="">
+            <label for=""  class="form-label">Product Quantity</label>
+            <input type="text" name= "pqty" id ="" class="form-control" placeholder="" VALUE="<?php echo $col[3]?>">
 
         </div>
+        <div class="dropdown my-4">
+<select name="cat" id="" VALUE="<?php echo $col[4]?>"> Choose Category
+<option value="">Select category</option>
+   <?php
+$q=mysqli_query($con,"SELECT * FROM `categories`");
+while($cat=mysqli_fetch_array($q)){
+    ?>
+<option value="<?php echo $cat[0] ?>"> <?php echo $cat[1] ?> </option>
+  
+   <?php
+ }
+ ?>
+ </select>
+  </div>
+        <div class ="from-control">
+            <label for=""  class="form-label">Image</label>
+            <input type="file" name= "pimage" id ="" class="form-control" placeholder="" VALUE="<?php echo $col[5]?>">
 
-        <input type="submit" value="Add" name="add" class="btn btn-primary my-4">
+        </div>
+       
+  <input type="submit" value="Update Product" name="update" class="btn btn-primary my-4">
+</div>
+
+        
     </form>
 </div>
+</div> 
             </div>
-          
-</div>
             <?php
+if(isset($_POST['update'])){
+   $name=$_POST['pname'];
+   $price=$_POST['pprice'];
+   $qty=$_POST['pqty'];
+   $category=$_POST['cat'];
+   $image=$_FILES['pimage']['name'];
+   $ptmpname=$_FILES['pimage']['tmp_name'];
+   $destination="img/".$image;
+   $extension=pathinfo($image,PATHINFO_EXTENSION);
+   
+   if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
+
+    if(move_uploaded_file($ptmpname,$destination)){
+        $update=mysqli_query($con, "UPDATE `products` SET `name`='$name',`prise`=' $price',`quantity`='$qty',`cat_id`='$category',`image`=' $image' ");
+        echo "<script>alert('product updated')</script>";
+    }
+    else{
+        echo "<script>alert('product does not updated')</script>";
+    }
+}
+    
+
+}
+?>
+          
+</div>       
+<?php
 include("footer.php")
 ?>
 
@@ -115,30 +164,3 @@ include("footer.php")
 </body>
 
 </html>
-<?php
-if(isset($_POST['add'])){
-   $name=$_POST['cname'];
-   $description=$_POST['cdescip'];
-   $image=$_FILES['cimage']['name'];
-   $cattmpname=$_FILES['cimage']['tmp_name'];
-   $destination="img/".$image;
-   $extension=pathinfo($image,PATHINFO_EXTENSION);
-   
-   if($extension =='png'|| $extension =='jpg' || $extension == 'jpeg' || $extension =='jfif'){
-
-    if(move_uploaded_file($cattmpname,$destination)){
-        $query=mysqli_query($con, "INSERT INTO `categories`(`category_name`, `description`, `image`) VALUES ('$name','$description','$image')");
-        echo "<script>alert('category inserted')</script>";
-    }
-    else{
-        echo "<script>alert('error')</script>";
-    }
-}
-    else{
-        echo "<script>alert('This file is not an image')</script>";
- 
-    }
-
-
-}
-?>

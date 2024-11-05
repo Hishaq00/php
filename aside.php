@@ -2,7 +2,7 @@
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
     <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
     </div>
@@ -14,7 +14,7 @@
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
-    <a class="nav-link" href="index.php">
+    <a class="nav-link" href="index.html">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -37,7 +37,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Categories:</h6>
-            <a class="collapse-item" href="addcat.php">Add Categories</a>
+            <a class="collapse-item" href="addcat.php"> Add Categories</a>
             <a class="collapse-item" href="viewcat.php">View Categories</a>
         </div>
     </div>
@@ -54,9 +54,8 @@
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Products:</h6>
-            <a class="collapse-item" href="addproducts.php">Add Product</a>
-            <a class="collapse-item" href="viewproducts.php">View Product</a>
-      
+            <a class="collapse-item" href="addproduct.php">Add Products</a>
+            <a class="collapse-item" href="viewproduct.php">View Products</a>
         </div>
     </div>
 </li>
@@ -331,5 +330,3 @@
 
     </nav>
     <!-- End of Topbar -->
-
-  

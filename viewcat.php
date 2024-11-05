@@ -37,29 +37,23 @@ include('connection.php');
         <th>name</th>
         <th>description</th>
         <th>image</th>
+        <th>delete</th>
+        <th>update</th>
     </thead>
-
-
-
-
- 
-
-
     <tbody>
     <?php
-    $query = mysqli_query($con, "SELECT `id`, `name`, `description`, `image` FROM `categories`");
-    while ($col = mysqli_fetch_array($query)) {
+    $query=mysqli_query($con," SELECT `id`, `category_name`, `description`, `image` FROM `categories` ");
+    while($col=mysqli_fetch_array($query)){
     ?>
     <tr>
-        <td scope="row"><?php echo $col['id']; ?></td>
-        <td><?php echo $col['name']; ?></td>
-        <td><?php echo $col['description']; ?></td>
+        <td scope="row"><?php echo $col['0']; ?></td>
+        <td><?php echo $col['1']; ?></td>
+        <td><?php echo $col['2']; ?></td>
+        <td><img src="img/<?php echo $col['3']; ?>" alt="<?php echo $col['1']; ?>" style="width: 100px; height: auto;"></td>
         <td>
-            <img src="img/<?php echo $col['image']; ?>" alt="<?php echo $col['name']; ?>" style="width: 100px; height: auto;">
+            <a href="?id=<?php echo $col[0]; ?>" class="btn btn-danger">DELETE</a>
         </td>
-        <td>
-            <a href="?id=<?php echo $col['id']; ?>" class="btn btn-danger">DELETE</a>
-            <a href="update.php?id=<?php echo $col['id']; ?>" class="btn btn-info">UPDATE</a>
+        <td>            <a href="cat_update.php?id=<?php echo $col[0]; ?>" class="btn btn-info">UPDATE</a>
         </td>
     </tr>
     <?php
@@ -147,7 +141,7 @@ if(isset($_POST['add'])){
    if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
 
     if(move_uploaded_file($cattmpname,$destination)){
-        $query=mysqli_query($con, "INSERT INTO `categories`(`name`, `description`, `image`) VALUES ('$name','$description','$image')");
+        $query=mysqli_query($con, "INSERT INTO `categories`(`category_name`, `description`, `image`) VALUES ('$name','$description','$image')");
         echo "<script>alert('category inserted')</script>";
     }
     else{

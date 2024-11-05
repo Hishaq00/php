@@ -27,9 +27,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-    <?php
-include("aside.php")
-?>
+       <?php 
+       include("aside.php");
+       ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -365,9 +365,9 @@ include("aside.php")
             </div>
             <!-- End of Main Content -->
 
-            <?php
-include("footer.php")
-?>
+           <?php 
+           include("footer.php");
+           ?>
 
         </div>
         <!-- End of Content Wrapper -->

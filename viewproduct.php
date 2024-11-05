@@ -30,48 +30,67 @@ include('connection.php');
 
     <?php include("aside.php") ?>
 
-                
-                <div class="container-fluid">
+    <div class="container-fluid">
+    <table class="table ">
+    <thead class="table-info">
+        <th>id</th>
+        <th>name</th>
+        <th>prise</th>
+        <th>Qty</th>
+        <th>cat_id</th>
+        <th>image</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </thead>
+    <tbody>
+    <?php
+    $query=mysqli_query($con," SELECT * FROM `products`");
+    while($col=mysqli_fetch_array($query)){
+    ?>
+    <tr>
+        <td scope="row"><?php echo $col['0']; ?></td>
+        <td><?php echo $col['1']; ?></td>
+        <td><?php echo $col['2']; ?></td>
+        <td><?php echo $col['3']; ?></td>
+        <td><?php echo $col['4']; ?></td>
+       
+        <td><img src="img/<?php echo $col['6']; ?>" alt="<?php echo $col['1']; ?>" style="width: 100px; height: auto;"></td>
+        <td>
+            <a href="?id=<?php echo $col[0]; ?>" class="btn btn-danger">DELETE</a>
+        </td>
+        <td>            <a href="pro_update.php?id=<?php echo $col[0]; ?>" class="btn btn-info">UPDATE</a>
+        </td>
+    </tr>
+    <?php
+    }
+    ?>
+</tbody>
 
-                
-                <div class="container my-4">
-    <form action="" method="post" enctype="multipart/form-data">
-        <div class ="from-control">
-            <label for=""  class="form-label">category name</label>
-            <input type="text" name= "cname" id ="" class="form-control" placeholder="">
-
-        </div>
-
-        <div class ="from-control">
-            <label for=""  class="form-label">category description</label>
-            <input type="text" name= "cdescip" id ="" class="form-control" placeholder="">
-
-        </div>
-
-        <div class ="from-control">
-            <label for=""  class="form-label">image</label>
-            <input type="file" name= "cimage" id ="" class="form-control" placeholder="">
-
-        </div>
-
-        <input type="submit" value="Add" name="add" class="btn btn-primary my-4">
-    </form>
+  </table>
 </div>
-            </div>
-          
 </div>
-            <?php
+<?php
+if(isset($_GET['id'])){
+  $id=$_GET['id'];
+  $del=mysqli_query($con,"DELETE FROM `products` WHERE id=$id");
+  if($del){
+    echo "<script>alert('data deleted');
+    location.assign('viewcat.php');
+    </script>";
+  }
+}
+?>
+
+
+
+    <?php
 include("footer.php")
 ?>
 
-        </div>
-        <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+ <!-- Scroll to Top Button-->
+ <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
@@ -115,30 +134,3 @@ include("footer.php")
 </body>
 
 </html>
-<?php
-if(isset($_POST['add'])){
-   $name=$_POST['cname'];
-   $description=$_POST['cdescip'];
-   $image=$_FILES['cimage']['name'];
-   $cattmpname=$_FILES['cimage']['tmp_name'];
-   $destination="img/".$image;
-   $extension=pathinfo($image,PATHINFO_EXTENSION);
-   
-   if($extension =='png'|| $extension =='jpg' || $extension == 'jpeg' || $extension =='jfif'){
-
-    if(move_uploaded_file($cattmpname,$destination)){
-        $query=mysqli_query($con, "INSERT INTO `categories`(`category_name`, `description`, `image`) VALUES ('$name','$description','$image')");
-        echo "<script>alert('category inserted')</script>";
-    }
-    else{
-        echo "<script>alert('error')</script>";
-    }
-}
-    else{
-        echo "<script>alert('This file is not an image')</script>";
- 
-    }
-
-
-}
-?>

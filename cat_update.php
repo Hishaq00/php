@@ -31,35 +31,77 @@ include('connection.php');
     <?php include("aside.php") ?>
 
                 
-                <div class="container-fluid">
-
-                
+                <div class="container-fluid">    
                 <div class="container my-4">
+        <h1 class="text-info"> Update</h1>
+        <?php
+        if(isset($_GET['id'])){
+$up=$_GET['id'];
+$query=mysqli_query($con,"SELECT * FROM `categories` WHERE id=$up");
+$col=mysqli_fetch_array($query);
+        }
+        ?>
     <form action="" method="post" enctype="multipart/form-data">
         <div class ="from-control">
             <label for=""  class="form-label">category name</label>
-            <input type="text" name= "cname" id ="" class="form-control" placeholder="">
+            <input type="text" name= "cname" id ="" class="form-control" placeholder=""  VALUE="<?php echo $col[1]?>" >
 
         </div>
 
         <div class ="from-control">
             <label for=""  class="form-label">category description</label>
-            <input type="text" name= "cdescip" id ="" class="form-control" placeholder="">
+            <input type="text" name= "cdescip" id ="" class="form-control" placeholder=""  VALUE="<?php echo $col[2]?>" >
 
         </div>
 
         <div class ="from-control">
             <label for=""  class="form-label">image</label>
-            <input type="file" name= "cimage" id ="" class="form-control" placeholder="">
+            <input type="file" name= "cimage" id ="" class="form-control" placeholder=""  VALUE="<?php echo $col[3]?>" >
 
         </div>
 
-        <input type="submit" value="Add" name="add" class="btn btn-primary my-4">
+        <input type="submit" value="update" name="update" class="btn btn-primary my-4">
     </form>
 </div>
             </div>
-          
 </div>
+<?php
+if(isset($_POST['update'])){
+   $name=$_POST['cname'];
+   $description=$_POST['cdescip'];
+   $image=$_FILES['cimage']['name'];
+   $cattmpname=$_FILES['cimage']['tmp_name'];
+   $destination="img/".$image;
+   $extension=pathinfo($image,PATHINFO_EXTENSION);
+   
+   if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
+
+    if(move_uploaded_file($cattmpname,$destination)){
+        $update=mysqli_query($con, "UPDATE `categories` SET `category_name`='$name',`description`='$description',`image`='$image' WHERE  id=$up");
+        if($update){
+            echo "<script>alert('data updated');
+               location.assign('viewcat.php');
+            </script>";
+        }
+        else{
+            echo "<script>alert('data does not updated')</script>";
+    
+        }
+    }
+    }
+}
+    ?>
+
+
+?>
+
+
+
+
+
+
+
+
             <?php
 include("footer.php")
 ?>
@@ -124,10 +166,10 @@ if(isset($_POST['add'])){
    $destination="img/".$image;
    $extension=pathinfo($image,PATHINFO_EXTENSION);
    
-   if($extension =='png'|| $extension =='jpg' || $extension == 'jpeg' || $extension =='jfif'){
+   if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
 
     if(move_uploaded_file($cattmpname,$destination)){
-        $query=mysqli_query($con, "INSERT INTO `categories`(`category_name`, `description`, `image`) VALUES ('$name','$description','$image')");
+        $query=mysqli_query($con, "INSERT INTO `categories`(`name`, `description`, `image`) VALUES ('$name','$description','$image')");
         echo "<script>alert('category inserted')</script>";
     }
     else{
@@ -138,7 +180,7 @@ if(isset($_POST['add'])){
         echo "<script>alert('This file is not an image')</script>";
  
     }
-
+;
 
 }
 ?>
