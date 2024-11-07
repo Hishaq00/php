@@ -1,3 +1,6 @@
+<?php
+include('connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,15 +44,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method='post'>
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Enter Email Address..." name="email">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" placeholder="Password"  name="pass">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -58,9 +61,8 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.php" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" name='btn_login' placeholder="Login">
+                                        
                                         <hr>
                                         <a href="index.php" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -87,7 +89,25 @@
         </div>
 
     </div>
+    <?php
+if(isset($_POST['btn_login'])){
+   
+    $email=$_POST['email'];
+    $password=$_POST['pass'];
+    
+    $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND password='$password'");
+    $login=mysqli_num_rows($q);
+    if($login){
+        echo "<script>alert('login successfully');
+        location.assign('login.php')</script>";
+    }
+    else{
+        echo "<script>alert('login failed')</script>";
 
+    }
+
+}
+?>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
