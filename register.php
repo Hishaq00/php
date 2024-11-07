@@ -39,32 +39,36 @@ include('connection.php');
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method='post'>
+                            <form class="user" method='post' onsubmit="return validation()">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control form-control-user" id="FirstName"
                                             placeholder="First Name" name="fname">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" class="form-control form-control-user" id="LastName"
                                             placeholder="Last Name" name="lname">
+                                            <span class='text-danger' id="nameerror"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" 
-                                        placeholder="Email Address"  name="uemail">
+                                    <input type="email" class="form-control form-control-user" id="Email"
+                                        placeholder="Email Address" name="uemail">
+                                        <span class='text-danger' id="emailerror"></span>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control form-control-user" id="UserPassword"
                                  placeholder="Password"  name="upass">
+                                 <span class='text-danger' id="passworderror"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            id="cPassword" placeholder="Repeat Password">
+                                            <span class='text-danger' id="cperror"></span>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-primary btn-user btn-block" name='btnadd'>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" name='btnadd' value="submit">
                             
                                 <hr>
                                 <a href="index.php" class="btn btn-google btn-user btn-block">
@@ -96,7 +100,7 @@ if(isset($_POST['btnadd'])){
     $email=$_POST['uemail'];
     $pass=$_POST['upass'];
     
-    $query=mysqli_query($con,"INSERT INTO `register`( `first_name`, `last_name`, `email`, `password`) VALUES ('$fname','$lname','$email','$pass')");
+    $query=mysqli_query($con,"INSERT INTO `register`( `full_name`, `last_name`, `email`, `pass`) VALUES ('$fname','$lname','$email','$pass')");
     if($query){
         echo "<script>alert('data inserted');
         location.assign ('login.php')</script>";
@@ -120,5 +124,53 @@ if(isset($_POST['btnadd'])){
     <script src="js/sb-admin-2.min.js"></script>
 
 </body>
+<script>
+   function validation(){
+    var FirstName = document.getElementById('FirstName').value;
+    var  LastName= document.getElementById('LastName').value;
+    var userEmail = document.getElementById('Email').value;
+    var UserPassword = document.getElementById('UserPassword').value;
+    var cpass = document.getElementById('cPassword').value;
 
+    var usercheck=/^[A-Za-z ]{3,20}$/;
+    var passwordcheck =/^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*^]{8,16}$/;
+    var emailcheck = /^[A-Za-z]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+
+    if(usercheck.test(FirstName)){
+        document.getElementById("nameerror").innerHTML="";
+    }
+    else{
+        document.getElementById("nameerror").innerHTML="**invalid firstname";
+        return  false;
+    }
+    if(usercheck.test(LastName)){
+        document.getElementById("nameerror").innerHTML="";
+    }
+    else{
+        document.getElementById("nameerror").innerHTML="**invalid lastname";
+        return  false;
+    }
+   if(emailcheck.test(userEmail)){
+        document.getElementById("emailerror").innerHTML="";
+        
+    }else{
+        document.getElementById("emailerror").innerHTML="**invalid email";
+        return  false;
+    }
+    if(passwordcheck.test(UserPassword)){
+        document.getElementById("UserPassword").innerHTML="";
+        
+    }else{
+        document.getElementById("UserPassword").innerHTML="**invalid password";
+        return  false;
+    }
+    if(passwordcheck.match(cpass)){
+        document.getElementById("cPassword").innerHTML="";
+        
+    }else{
+        document.getElementById("cPassword").innerHTML="**password does not match";
+        return  false;
+    }
+}
+</script>
 </html>
