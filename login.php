@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,9 +98,11 @@ if(isset($_POST['btn_login'])){
     
     $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND password='$password'");
     $login=mysqli_num_rows($q);
+    $user= mysqli_fetch_array($q);
     if($login){
+        $_SESSION['username']=$user[1];     
         echo "<script>alert('login successfully');
-        location.assign('login.php')</script>";
+        location.assign('index.php')</script>";
     }
     else{
         echo "<script>alert('login failed')</script>";
