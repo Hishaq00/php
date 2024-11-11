@@ -1,6 +1,11 @@
 <?php
 include('connection.php');
 session_start();
+if(isset($_SESSION['username'])!=null){
+    echo "<script>location.assign('index.php')</script>";
+}else{
+
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +105,8 @@ if(isset($_POST['btn_login'])){
     $login=mysqli_num_rows($q);
     $user= mysqli_fetch_array($q);
     if($login){
-        $_SESSION['username']=$user[1];     
+        $_SESSION['username']=$user[1];   
+        $_SESSION['userrole']=$user[5];     
         echo "<script>alert('login successfully');
         location.assign('index.php')</script>";
     }
@@ -124,3 +130,6 @@ if(isset($_POST['btn_login'])){
 </body>
 
 </html>
+<?php
+}
+?>
