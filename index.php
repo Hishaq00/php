@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['username'])==null){
+    echo "<script>location.assign('index.php')</script>";
+}else{
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,9 +34,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-       <?php 
-       include("aside.php");
-       ?>
+    <?php
+include("aside.php")
+?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -365,9 +372,9 @@
             </div>
             <!-- End of Main Content -->
 
-           <?php 
-           include("footer.php");
-           ?>
+            <?php
+include("footer.php")
+?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -420,3 +427,6 @@
 </body>
 
 </html>
+<?php
+}
+?>
