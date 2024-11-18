@@ -124,53 +124,5 @@ if(isset($_POST['btnadd'])){
     <script src="js/sb-admin-2.min.js"></script>
 
 </body>
-<script>
-   function validation(){
-    var FirstName = document.getElementById('FirstName').value;
-    var  LastName= document.getElementById('LastName').value;
-    var userEmail = document.getElementById('Email').value;
-    var UserPassword = document.getElementById('UserPassword').value;
-    var cpass = document.getElementById('cPassword').value;
 
-    var usercheck=/^[A-Za-z ]{3,20}$/;
-    var passwordcheck =/^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*^]{8,16}$/;
-    var emailcheck = /^[A-Za-z]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
-
-    if(usercheck.test(FirstName)){
-        document.getElementById("nameerror").innerHTML="";
-    }
-    else{
-        document.getElementById("nameerror").innerHTML="**invalid firstname";
-        return  false;
-    }
-    if(usercheck.test(LastName)){
-        document.getElementById("nameerror").innerHTML="";
-    }
-    else{
-        document.getElementById("nameerror").innerHTML="**invalid lastname";
-        return  false;
-    }
-   if(emailcheck.test(userEmail)){
-        document.getElementById("emailerror").innerHTML="";
-        
-    }else{
-        document.getElementById("emailerror").innerHTML="**invalid email";
-        return  false;
-    }
-    if(passwordcheck.test(UserPassword)){
-        document.getElementById("UserPassword").innerHTML="";
-        
-    }else{
-        document.getElementById("UserPassword").innerHTML="**invalid password";
-        return  false;
-    }
-    if(passwordcheck.match(cpass)){
-        document.getElementById("cPassword").innerHTML="";
-        
-    }else{
-        document.getElementById("cPassword").innerHTML="**password does not match";
-        return  false;
-    }
-}
-</script>
 </html>

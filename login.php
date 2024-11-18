@@ -101,12 +101,12 @@ if(isset($_POST['btn_login'])){
     $email=$_POST['email'];
     $password=$_POST['pass'];
     
-    $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND password='$password'");
+    $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND pass='$password'");
     $login=mysqli_num_rows($q);
     $user= mysqli_fetch_array($q);
     if($login){
         $_SESSION['username']=$user[1];   
-        $_SESSION['userrole']=$user[5];     
+        $_SESSION['userrole']=$user[5];        
         echo "<script>alert('login successfully');
         location.assign('index.php')</script>";
     }

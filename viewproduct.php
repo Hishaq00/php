@@ -1,5 +1,6 @@
 <?php
 include('connection.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +55,7 @@ include('connection.php');
         <td><?php echo $col['3']; ?></td>
         <td><?php echo $col['4']; ?></td>
        
-        <td><img src="img/<?php echo $col['6']; ?>" alt="<?php echo $col['1']; ?>" style="width: 100px; height: auto;"></td>
+        <td><img src="img/<?php echo $col['5']; ?>" alt="<?php echo $col['1']; ?>" style="width: 100px; height: auto;"></td>
         <td>
             <a href="?id=<?php echo $col[0]; ?>" class="btn btn-danger">DELETE</a>
         </td>
