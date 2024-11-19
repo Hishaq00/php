@@ -97,15 +97,13 @@ if(isset($_POST['update'])){
    if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
 
     if(move_uploaded_file($ptmpname,$destination)){
-        $update=mysqli_query($con, "UPDATE `products` SET `name`='$name',`prise`=' $price',`quantity`='$qty',`cat_id`='$category',`image`=' $image' ");
+        $update=mysqli_query($con, "UPDATE `products` SET `name`='$name',`price`=' $price',`quantity`='$qty',`cat_id`='$category',`image`=' $image' ");
         echo "<script>alert('product updated')</script>";
     }
     else{
         echo "<script>alert('product does not updated')</script>";
     }
 }
-    
-
 }
 ?>
           

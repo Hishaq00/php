@@ -78,7 +78,7 @@ if(isset($_POST['update'])){
    if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
 
     if(move_uploaded_file($cattmpname,$destination)){
-        $update=mysqli_query($con, "UPDATE `categories` SET `category_name`='$name',`description`='$description',`image`='$image' WHERE  id=$up");
+        $update=mysqli_query($con, "UPDATE `categories` SET `name`='$name',`description`='$description',`image`='$image' WHERE  id=$up");
         if($update){
             echo "<script>alert('data updated');
                location.assign('viewcat.php');
@@ -94,7 +94,7 @@ if(isset($_POST['update'])){
     ?>
 
 
-?>
+
 
 
 
