@@ -101,7 +101,7 @@ if(isset($_POST['btn_login'])){
     $email=$_POST['email'];
     $password=$_POST['pass'];
     
-    $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND pass='$password'");
+    $q=mysqli_query($con,"SELECT * FROM `register` WHERE email='$email' AND password='$password'");
     $login=mysqli_num_rows($q);
     $user= mysqli_fetch_array($q);
     if($login){
