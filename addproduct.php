@@ -95,7 +95,7 @@ if(isset($_POST['add'])){
    if($extension=='png'|| $extension=='jpg' || $extension== 'jpeg' || $extension=='jfif'){
 
     if(move_uploaded_file($ptmpname,$destination)){
-        $q=mysqli_query($con, "INSERT INTO `products`( `name`, `prise`, `quantity`, `cat_id`, `image`) VALUES ('$name','$price','$qty','$category','$image')");
+        $q=mysqli_query($con, "INSERT INTO `products`(`name`, `price`, `quantity`, `cat_id`, `image`) VALUES ('$name','$price','$qty','$category','$image')");
         echo "<script>alert('category inserted')</script>";
     }
     else{
